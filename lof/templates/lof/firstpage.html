@@ -1,0 +1,18 @@
+{% extends 'lof/index.html' %}{% block body %} {% if error_message %} {{ error_message }} {% endif %}
+<h2>Create leaderboard</h2>
+<form method="POST">
+  {% csrf_token %}
+  <label>Leaderbord name:</label>
+  <input type="text" name="leaderboard_name" placeholder="Leaderboard name" /><br />
+  <label>Leaderboard password:</label>
+  <input type="password" name="leaderboard_password" placeholder="Leaderboard password" />
+  <button type="submit" name="create_leaderboard">Create leaderboard!</button>
+</form>
+<h2>Search leaderboard</h2>
+<form method="POST">
+  {% csrf_token %}
+  <label>Leaderboard name:</label>
+  <input type="text" name="leaderboard_name" placeholder="Leaderboard name" />
+  <button type="submit" name="search_leaderboard">Go to leaderboard!</button>
+</form>
+{% endblock body %}
