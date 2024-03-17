@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 
-from .models import Leaderboard, SoloDuoLeaderboard, Player
-from .forms import LeaderboardForm, PlayerForm, SoloDuoLeaderboard
+from .models import Leaderboard, SoloDuoLeaderboard, FlexLeaderboard, TftLeaderboard
+from .forms import LeaderboardForm
 from .utils import main, transform_leaderboard
 
 # Create your views here.
@@ -35,20 +35,34 @@ def leaderboard(request, leaderboard_name):
     main(leaderboard_name, region, username, tag )
   try:
     solo_duo_leaderboard = SoloDuoLeaderboard.objects.filter(leaderboard=leaderboard)
+    flex_leaderboard = FlexLeaderboard.objects.filter(leaderboard=leaderboard)
+    tft_leaderboard = TftLeaderboard.objects.filter(leaderboard=leaderboard)
   except:
     return render(request, './lof/leaderboard.html', {
       'leaderboard_name': leaderboard_name,
       'players': [],
     })
   else:
-    ordered_leaderboard = solo_duo_leaderboard.order_by('-tier', '-rank', '-lp')
-    player_names = []
-    for players in ordered_leaderboard:
-      player_names += [player.name for player in players.player.all()]
-    players = transform_leaderboard(player_names, ordered_leaderboard)
+    solo_duo_leaderboard = solo_duo_leaderboard.order_by('-tier', '-rank', '-lp')
+    flex_leaderboard = flex_leaderboard.order_by('-tier', '-rank', '-lp')
+    tft_leaderboard = tft_leaderboard.order_by('-tier', '-rank', '-lp')
+    solo_duo_players = []
+    for players in solo_duo_leaderboard:
+      solo_duo_players += [player.name for player in players.player.all()]
+    flex_players = []
+    for players in flex_leaderboard:
+      flex_players += [player.name for player in players.player.all()]
+    tft_players = []
+    for players in tft_leaderboard:
+      tft_players += [player.name for player in players.player.all()]
+    solo_duo_players = transform_leaderboard(solo_duo_players, solo_duo_leaderboard)
+    flex_players = transform_leaderboard(flex_players, flex_leaderboard)
+    tft_players = transform_leaderboard(tft_players, tft_leaderboard)
     return render(request, './lof/leaderboard.html', {
       'leaderboard_name' : leaderboard_name,
-      'players' : players
+      'solo_duo_players' : solo_duo_players,
+      'flex_players' : flex_players,
+      'tft_players' : tft_players
     })
     return render(request, './lof/leaderboard.html', {
         'leaderboard_name': leaderboard_name,

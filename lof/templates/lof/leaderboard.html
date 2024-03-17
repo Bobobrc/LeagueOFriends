@@ -23,11 +23,69 @@
   </select>
   <input type="text" name="username" placeholder="Username" />
   <input type="text" name="tag" placeholder="Tag" />
+  <label
+    style="
+      color: white;
+      background-color: darkolivegreen;
+      border-color: black;
+      border-style: solid;
+      border-width: 2.5px;
+      margin: 5px;
+    "
+  >
+    <input type="checkbox" name="solo_duo" />
+    S/D
+  </label>
+  <label
+    style="
+      color: white;
+      background-color: darkolivegreen;
+      border-color: black;
+      border-style: solid;
+      border-width: 2.5px;
+      margin: 5px;
+    "
+  >
+    <input type="checkbox" name="flex" />
+    Flex
+  </label>
+  <label
+    style="
+      color: white;
+      background-color: darkolivegreen;
+      border-color: black;
+      border-style: solid;
+      border-width: 2.5px;
+      margin: 5px;
+    "
+  >
+    <input type="checkbox" name="tft" />
+    TFT
+  </label>
   <button type="submit" name="add_player">Add player!</button>
 </form>
-<ul>
-  {% for player in players %}
-  <li>{{player}}</li>
-  {% endfor %}
-</ul>
+<div>
+  <div>
+    <ul>
+      {% for player in solo_duo_players %}
+      <li>{{player}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <ul>
+      {% for player in flex_players %}
+      <li>{{player}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <ul>
+      {% for player in tft_players %}
+      <li>{{player}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<a href="{% url 'firstpage' %}">BACK TO MAIN PAGE</a>
 {% endblock body %}
