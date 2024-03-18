@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 
 from .models import SoloDuoLeaderboard, Leaderboard, Player, FlexLeaderboard, TftLeaderboard
 from .forms import PlayerForm, SoloDuoLeaderboardForm, FlexLeaderboardForm, TftLeaderboardForm
@@ -8,23 +7,27 @@ api_key = ''
 tiers = ('UNRANKED', 'IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 'DIAMOND', 'MASTER', 'GRANDMASTER', 'CHALLENGER')
 ranks = ('UNRANKED', 'IV', 'III', 'II', 'I')
 
-def main(leaderboard_name, region, username, tag): 
+def main(leaderboard_name, region, username, tag, wanted_leaderboards): 
   updated = False
-  puuid = get_puuid(transform_region(region), username, tag)
+  if Player.objects.filter(name=username).exists():
+    puuid = Player.objects.get(name=username).puuid
+  else:
+    puuid = get_puuid(transform_region(region), username, tag)
   id = get_id(region, puuid)
   data = get_data(region, id)
   tft_data = get_tft_data(region, id)
-  for queue in tft_data:
-    if queue['queueType'] == 'RANKED_TFT':
-      update_leaderboard(leaderboard_name, puuid, False, username, queue, 'TFT')
-  for queue in data:
-    if queue['queueType'] == 'RANKED_SOLO_5x5':
-      update_leaderboard(leaderboard_name, puuid, False, username, queue, 'S/D')
-    elif queue['queueType'] == 'RANKED_FLEX_SR':
-      update_leaderboard(leaderboard_name, puuid, False, username, queue, 'FLEX')
+  if 'tft' in wanted_leaderboards:
+    for queue in tft_data:
+      if queue['queueType'] == 'RANKED_TFT':
+        add_player_to_leaderboard(leaderboard_name, region, tag, puuid, id, False, username, queue, 'TFT')
+  if 'solo_duo' in wanted_leaderboards or 'flex' in wanted_leaderboards:
+    for queue in data:
+      if queue['queueType'] == 'RANKED_SOLO_5x5' and 'solo_duo' in wanted_leaderboards:
+        add_player_to_leaderboard(leaderboard_name, region, tag, puuid, id, False, username, queue, 'S/D')
+      elif queue['queueType'] == 'RANKED_FLEX_SR':
+        add_player_to_leaderboard(leaderboard_name, region, tag, puuid, id, False, username, queue, 'FLEX')
   '''if not updated:
     update_soloduo_leaderboard(leaderboard_name, puuid, True, username, {'tier':0, 'rank':0, 'leaguePoints':0})'''
-  return puuid
 
 
 def get_puuid(region, username, tag):
@@ -47,7 +50,7 @@ def get_tft_data(region, id):
   response = requests.get(url)
   return response.json()
   
-def update_leaderboard(leaderboard_name, puuid, unranked, username, player_info, type):
+def add_player_to_leaderboard(leaderboard_name, region, tag, puuid, id, unranked, username, player_info, type):
     if unranked:
       name = username
       defaults = {'tier': player_info['tier'], 'rank': player_info['rank'], 'lp': player_info['leaguePoints']}
@@ -65,7 +68,7 @@ def update_leaderboard(leaderboard_name, puuid, unranked, username, player_info,
       else:
         add_player_to_tftleaderboard(player, leaderboard, defaults)
     else:
-      create_player_form = PlayerForm({'name':username, 'puuid':puuid})
+      create_player_form = PlayerForm({'region':region, 'name':username, 'tag':tag, 'puuid':puuid, 'summonerID': id})
       if create_player_form.is_valid():
         create_player_form.save()
         player = Player.objects.get(name=username)
@@ -128,3 +131,34 @@ def add_player_to_tftleaderboard(player,leaderboard,defaults):
       })
     if create_tftleaderboard_form.is_valid():
       create_tftleaderboard_form.save()
+      
+def update_leaderboard(leaderboard, type):
+  if type=='sd':
+    leaderboard = SoloDuoLeaderboard.objects.filter(leaderboard = leaderboard)
+    for player in leaderboard:
+      player = player.player.first()
+      data = get_data(player.region, player.summonerID)
+      for queue in data:
+        if queue['queueType'] == 'RANKED_SOLO_5x5':
+          player.tier = queue['tier']
+          player.rank = queue['rank']
+          player.lp = queue['leaguePoints']
+  elif type=='flex':
+    leaderboard = FlexLeaderboard.objects.filter(leaderboard = leaderboard)
+    for player in leaderboard:
+      data = get_data(player.region, player.summonerID)
+      for queue in data:
+        if queue['queueType'] == 'RANKED_FLEX_SR':
+          player.tier = queue['tier']
+          player.rank = queue['rank']
+          player.lp = queue['leaguePoints']
+  else:
+    leaderboard = TftLeaderboard.objects.filter(leaderboard = leaderboard)
+    for player in leaderboard:
+      data = get_tft_data(player.region, player.summonerID)
+      for queue in data:
+        if queue['queueType'] == 'RANKED_TFT':
+          player.tier = queue['tier']
+          player.rank = queue['rank']
+          player.lp = queue['leaguePoints']
+    

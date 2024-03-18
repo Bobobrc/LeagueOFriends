@@ -2,11 +2,14 @@ from django.db import models
 
 # Create your models here.
 class Player(models.Model):
+  region = models.CharField(max_length = 100)
   name = models.CharField(max_length = 100)
+  tag = models.CharField(max_length = 100)
   puuid = models.CharField(max_length = 100)
+  summonerID = models.CharField(max_length = 100)
   
   def __str__(self):
-    return f'{self.name} {self.puuid}'
+    return f'{self.region} {self.name} {self.tag}'
   
 class Leaderboard(models.Model):
   leaderboard_name = models.CharField(max_length = 50, unique=True, blank=False, null=False)

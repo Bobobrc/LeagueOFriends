@@ -17,7 +17,7 @@ class LeaderboardAdmin(admin.ModelAdmin):
             return '-'
   
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'puuid')
+    list_display = ('region', 'name', 'tag')
     
     
 
