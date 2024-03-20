@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 
 from .models import Leaderboard, SoloDuoLeaderboard, FlexLeaderboard, TftLeaderboard
 from .forms import LeaderboardForm
-from .utils import main, transform_leaderboard, update_leaderboard
+from .utils import main, transform_leaderboard, update_leaderboard, remove_players
 
 # Create your views here.
 
@@ -37,6 +37,17 @@ def leaderboard(request, leaderboard_name):
       update_leaderboard(leaderboard, 'flex')
     elif 'update_tft_leaderboard' in request.POST:
       update_leaderboard(leaderboard, 'tft')
+    elif 'remove_player' in request.POST:
+      print(request.POST)
+      if 'sd_players' in request.POST:
+        players = request.POST.getlist('sd_players')
+        remove_players(leaderboard, players, 'sd')
+      if 'flex_players' in request.POST:
+        players = request.POST.getlist('flex_players')
+        remove_players(leaderboard, players, 'flex')
+      if 'tft_players' in request.POST:
+        players = request.POST.getlist('tft_players')
+        remove_players(leaderboard, players, 'tft')
     else:
       region = request.POST['region']
       username = request.POST['username']

@@ -3,7 +3,7 @@ import requests
 from .models import SoloDuoLeaderboard, Leaderboard, Player, FlexLeaderboard, TftLeaderboard
 from .forms import PlayerForm, SoloDuoLeaderboardForm, FlexLeaderboardForm, TftLeaderboardForm
 
-api_key = ''
+api_key = 'RGAPI-ed9bdf03-296a-42ea-83d3-b1e099d1406e'
 tiers = ('UNRANKED', 'IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 'DIAMOND', 'MASTER', 'GRANDMASTER', 'CHALLENGER')
 ranks = ('UNRANKED', 'IV', 'III', 'II', 'I')
 
@@ -26,8 +26,6 @@ def main(leaderboard_name, region, username, tag, wanted_leaderboards):
         add_player_to_leaderboard(leaderboard_name, region, tag, puuid, id, False, username, queue, 'S/D')
       elif queue['queueType'] == 'RANKED_FLEX_SR':
         add_player_to_leaderboard(leaderboard_name, region, tag, puuid, id, False, username, queue, 'FLEX')
-  '''if not updated:
-    update_soloduo_leaderboard(leaderboard_name, puuid, True, username, {'tier':0, 'rank':0, 'leaguePoints':0})'''
 
 
 def get_puuid(region, username, tag):
@@ -146,6 +144,7 @@ def update_leaderboard(leaderboard, type):
   elif type=='flex':
     leaderboard = FlexLeaderboard.objects.filter(leaderboard = leaderboard)
     for player in leaderboard:
+      player = player.player.first()
       data = get_data(player.region, player.summonerID)
       for queue in data:
         if queue['queueType'] == 'RANKED_FLEX_SR':
@@ -155,6 +154,7 @@ def update_leaderboard(leaderboard, type):
   else:
     leaderboard = TftLeaderboard.objects.filter(leaderboard = leaderboard)
     for player in leaderboard:
+      player = player.player.first()
       data = get_tft_data(player.region, player.summonerID)
       for queue in data:
         if queue['queueType'] == 'RANKED_TFT':
@@ -162,3 +162,19 @@ def update_leaderboard(leaderboard, type):
           player.rank = queue['rank']
           player.lp = queue['leaguePoints']
     
+def remove_players(leaderboard, players, type):
+  if type == 'sd':
+    for player in players:
+      player = Player.objects.get(name=player)
+      leaderboard_instance = SoloDuoLeaderboard.objects.filter(leaderboard=leaderboard, player = player)
+      leaderboard_instance.delete()
+  elif type == 'flex':
+    for player in players:
+      player = Player.objects.get(name=player)
+      leaderboard_instance = FlexLeaderboard.objects.filter(leaderboard=leaderboard, player = player)
+      leaderboard_instance.delete()
+  else:
+    for player in players:
+      player = Player.objects.get(name=player)
+      leaderboard_instance = TftLeaderboard.objects.filter(leaderboard=leaderboard, player = player)
+      leaderboard_instance.delete()

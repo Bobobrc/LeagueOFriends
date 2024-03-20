@@ -70,41 +70,88 @@
 
 <div>
   <div>
-    <h3>Solo/Duo</h3>
     <form method="POST">
       {% csrf_token %}
-      <button type="submit" name="update_sd_leaderboard">Update S/D leaderboard</button>
-    </form>
+      <button style="margin-top: 10px" type="submit" name="remove_player">REMOVE PLAYERS!</button>
+      <h3>Solo/Duo</h3>
+      <button type="submit" name="update_sd_leaderboard" value="update_sd">Update</button>
     <ul>
       {% for player in solo_duo_players %}
-      <li>{{player}}</li>
+      <div style="display: flex; align-items: center">
+        <li style="margin-right: 10px">{{player}}</li>
+        <label
+          style="
+            color: white;
+            background-color: darkolivegreen;
+            border-color: black;
+            border-style: solid;
+            border-width: 2.5px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <input style="margin-left: 5px" type="checkbox" name="sd_players" value="{{player.0}}" />
+          Remove player!
+        </label>
+      </div>
       {% endfor %}
     </ul>
+
+    <h3>FLEX</h3>
+      <button type="submit" name="update_flex_leaderboard" value="update_flex">Update</button>
+    <div>
+      <ul>
+        {% for player in flex_players %}
+        <div style="display: flex; align-items: center">
+          <li style="margin-right: 10px">{{player}}</li>
+          <label
+            style="
+              color: white;
+              background-color: darkolivegreen;
+              border-color: black;
+              border-style: solid;
+              border-width: 2.5px;
+              margin: 5px;
+              display: flex;
+              align-items: center;
+            "
+          >
+            <input style="margin-left: 5px" type="checkbox" name="flex_players" value="{{player.0}}" />
+            Remove player!
+          </label>
+        </div>
+        {% endfor %}
+      </ul>
+    </div>
+    <h3>TFT</h3>
+      <button type="submit" name="update_tft_leaderboard" value="update_tft">Update</button>
+    <div>
+      <ul>
+        {% for player in tft_players %}
+        <div style="display: flex; align-items: center">
+          <li style="margin-right: 10px">{{player}}</li>
+          <label
+            style="
+              color: white;
+              background-color: darkolivegreen;
+              border-color: black;
+              border-style: solid;
+              border-width: 2.5px;
+              margin: 5px;
+              display: flex;
+              align-items: center;
+            "
+          >
+            <input style="margin-left: 5px" type="checkbox" name="tft_players" value="{{player.0}}" />
+            Remove player!
+          </label>
+        </div>
+        {% endfor %}
+      </ul>
+      </form>
+    </div>
   </div>
-  <h3>FLEX</h3>
-  <form method="POST">
-    {% csrf_token %}
-    <button type="submit" name="update_sd_leaderboard">Update FLEX leaderboard</button>
-  </form>
-  <div>
-    <ul>
-      {% for player in flex_players %}
-      <li>{{player}}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  <h3>TFT</h3>
-  <form method="POST">
-    {% csrf_token %}
-    <button type="submit" name="update_sd_leaderboard">Update TFT leaderboard</button>
-  </form>
-  <div>
-    <ul>
-      {% for player in tft_players %}
-      <li>{{player}}</li>
-      {% endfor %}
-    </ul>
-  </div>
+  <a href="{% url 'firstpage' %}">BACK TO MAIN PAGE</a>
+  {% endblock body %}
 </div>
-<a href="{% url 'firstpage' %}">BACK TO MAIN PAGE</a>
-{% endblock body %}
