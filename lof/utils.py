@@ -133,11 +133,8 @@ def add_player_to_tftleaderboard(player,leaderboard,defaults):
 def update_leaderboard(leaderboard, type):
   if type=='sd':
     leaderboard = SoloDuoLeaderboard.objects.filter(leaderboard = leaderboard)
-    print(leaderboard)
     for player in leaderboard:
       player_data = player.player.first()
-      print(player)
-      print(player_data)
       data = get_data(player_data.region, player_data.summonerID)
       for queue in data:
         if queue['queueType'] == 'RANKED_SOLO_5x5':
