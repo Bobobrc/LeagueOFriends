@@ -3,7 +3,7 @@ import requests
 from .models import SoloDuoLeaderboard, Leaderboard, Player, FlexLeaderboard, TftLeaderboard
 from .forms import PlayerForm, SoloDuoLeaderboardForm, FlexLeaderboardForm, TftLeaderboardForm
 
-api_key = 'RGAPI-ed9bdf03-296a-42ea-83d3-b1e099d1406e'
+api_key = ''
 tiers = ('UNRANKED', 'IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 'DIAMOND', 'MASTER', 'GRANDMASTER', 'CHALLENGER')
 ranks = ('UNRANKED', 'IV', 'III', 'II', 'I')
 
@@ -133,34 +133,40 @@ def add_player_to_tftleaderboard(player,leaderboard,defaults):
 def update_leaderboard(leaderboard, type):
   if type=='sd':
     leaderboard = SoloDuoLeaderboard.objects.filter(leaderboard = leaderboard)
+    print(leaderboard)
     for player in leaderboard:
-      player = player.player.first()
-      data = get_data(player.region, player.summonerID)
+      player_data = player.player.first()
+      print(player)
+      print(player_data)
+      data = get_data(player_data.region, player_data.summonerID)
       for queue in data:
         if queue['queueType'] == 'RANKED_SOLO_5x5':
-          player.tier = queue['tier']
-          player.rank = queue['rank']
+          player.tier = tiers.index(queue['tier'])
+          player.rank = ranks.index(queue['rank'])
           player.lp = queue['leaguePoints']
+          player.save()
   elif type=='flex':
     leaderboard = FlexLeaderboard.objects.filter(leaderboard = leaderboard)
     for player in leaderboard:
-      player = player.player.first()
-      data = get_data(player.region, player.summonerID)
+      player_data = player.player.first()
+      data = get_data(player_data.region, player_data.summonerID)
       for queue in data:
         if queue['queueType'] == 'RANKED_FLEX_SR':
-          player.tier = queue['tier']
-          player.rank = queue['rank']
+          player.tier = tiers.index(queue['tier'])
+          player.rank = ranks.index(queue['rank'])
           player.lp = queue['leaguePoints']
+          player.save()
   else:
     leaderboard = TftLeaderboard.objects.filter(leaderboard = leaderboard)
     for player in leaderboard:
-      player = player.player.first()
-      data = get_tft_data(player.region, player.summonerID)
+      player_data = player.player.first()
+      data = get_tft_data(player_data.region, player_data.summonerID)
       for queue in data:
         if queue['queueType'] == 'RANKED_TFT':
-          player.tier = queue['tier']
-          player.rank = queue['rank']
+          player.tier = tiers.index(queue['tier'])
+          player.rank = ranks.index(queue['rank'])
           player.lp = queue['leaguePoints']
+          player.save()
     
 def remove_players(leaderboard, players, type):
   if type == 'sd':
