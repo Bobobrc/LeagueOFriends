@@ -3,7 +3,7 @@ import requests
 from .models import SoloDuoLeaderboard, Leaderboard, Player, FlexLeaderboard, TftLeaderboard
 from .forms import PlayerForm, SoloDuoLeaderboardForm, FlexLeaderboardForm, TftLeaderboardForm
 
-api_key = ''
+api_key = 'RGAPI-ed9bdf03-296a-42ea-83d3-b1e099d1406e'
 tiers = ('UNRANKED', 'IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 'DIAMOND', 'MASTER', 'GRANDMASTER', 'CHALLENGER')
 ranks = ('UNRANKED', 'IV', 'III', 'II', 'I')
 
