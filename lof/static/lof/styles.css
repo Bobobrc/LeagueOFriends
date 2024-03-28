@@ -1,0 +1,166 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: rgb(10, 10, 10);
+}
+
+.container {
+  flex: 1;
+  background-color: rgb(27, 27, 27);
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-family: "Roboto Slab", sans-serif;
+  color: white;
+}
+
+#mainTitle {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 50px;
+  font-family: "Roboto Slab", sans-serif;
+  color: white;
+}
+
+.createLeaderboard,
+.searchLeaderboard {
+  text-align: center;
+  margin-top: 100px;
+  font-family: "Roboto Slab", sans-serif;
+  color: white;
+}
+
+.leaderboardNameLabel,
+.leaderboardPasswordLabel {
+  font-family: "Roboto Slab", sans-serif;
+  margin-top: 10px;
+  margin-left: 135px;
+  color: rgb(190, 24, 190);
+}
+.leaderboardNameLabel2 {
+  margin-top: 20px;
+}
+
+.nameField {
+  margin-left: 39px;
+}
+
+.buttonPage1 {
+  margin-left: 35%;
+  margin-top: 10px;
+}
+.button2 {
+  margin-top: 36px;
+}
+
+.errorMessage {
+  text-align: center;
+  color: red;
+}
+
+.publicLeaderboards {
+  text-align: center;
+  font-family: "Roboto Slab", sans-serif;
+  margin-top: 20px;
+  color: white;
+}
+
+.allLeaderboards {
+  color: rgb(190, 24, 190);
+  text-decoration: none;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 25px;
+  margin: 5px;
+}
+
+.addPlayer,
+.leaderboardName {
+  text-align: center;
+  font-family: "Roboto Slab", sans-serif;
+  color: white;
+}
+.addPlayer {
+  font-size: 25px;
+  margin-top: 2.5px;
+}
+
+.sdCheckbox,
+.flexCheckbox,
+.tftCheckbox {
+  color: white;
+  background-color: darkolivegreen;
+  border-color: white;
+  border-style: solid;
+  border-width: 2.5px;
+  margin: 5px;
+  padding: 1px 5px 1px 5px;
+}
+
+.addButton {
+  margin-bottom: 5px;
+}
+
+.removePlayerLabel {
+  color: white;
+  background-color: darkolivegreen;
+  border-color: white;
+  border-style: solid;
+  border-width: 2.5px;
+  margin-left: auto;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  padding: 1px 2px 1px 2px;
+}
+
+.players {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.sdPlayersT,
+.flexPlayersT,
+.tftPlayersT {
+  color: rgb(190, 24, 190);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sdUpdate,
+.flexUpdate,
+.tftUpdate {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 3px;
+}
+
+.sdTable,
+.flexTable,
+.tftTable {
+  height: 500px;
+  overflow: scroll;
+  border: 1px #aabbcc solid;
+  margin-top: 15px;
+}
+
+.removePlayersButton {
+  text-align: center;
+  font-family: "Roboto Slab", sans-serif;
+  margin-top: 5px;
+}
+
+.goBack {
+  color: rgb(190, 24, 190);
+  text-decoration: none;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 25px;
+  margin-left: 40%;
+}
