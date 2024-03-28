@@ -8,6 +8,7 @@ from .utils import main, transform_leaderboard, update_leaderboard, remove_playe
 # Create your views here.
 
 def firstpage(request):
+  leaderboards = Leaderboard.objects.all()
   if request.method == "POST":
     if 'search_leaderboard' in request.POST:
       leaderboard_name = request.POST.get('leaderboard_name')
@@ -15,7 +16,7 @@ def firstpage(request):
         Leaderboard.objects.get(leaderboard_name = leaderboard_name)
         return redirect('leaderboard', leaderboard_name = leaderboard_name)
       except Leaderboard.DoesNotExist:
-        return render(request, './lof/firstpage.html', {'error_message': "Leaderboard does not exist!"})
+        return render(request, './lof/firstpage.html', {'error_message': "Leaderboard does not exist!", 'leaderboards':leaderboards})
     else:
       create_leaderboard_form = LeaderboardForm(request.POST)
       if create_leaderboard_form.is_valid():
@@ -24,7 +25,9 @@ def firstpage(request):
         return redirect('leaderboard', leaderboard_name = leaderboard_name)
       else:
         return render(request, './lof/firstpage.html', {'error_message': "Leaderboard already exists!"})
-  return render(request, './lof/firstpage.html')
+  return render(request, './lof/firstpage.html', {
+    'leaderboards': leaderboards
+  })
 
 def leaderboard(request, leaderboard_name):
   wanted_leaderboards = []
@@ -95,21 +98,3 @@ def leaderboard(request, leaderboard_name):
       'tft_players' : tft_players,
       'error_message' : error_message
     })
-    return render(request, './lof/leaderboard.html', {
-        'leaderboard_name': leaderboard_name,
-        'players': [],
-      })
-  '''try:
-    leaderboard = Leaderboard.objects.get(leaderboard_name=leaderboard_name)
-    solo_duo_leaderboard = SoloDuoLeaderboard.objects.filter(leaderboard=leaderboard)
-    players = Player.objects.filter(soloduoleaderboards__in = solo_duo_leaderboard)
-  except SoloDuoLeaderboard.DoesNotExist:
-    return render(request, './lof/leaderboard.html', {
-      'leaderboard_name': leaderboard_name,
-      'players': [],
-    })
-  else:
-    return render(request, './lof/leaderboard.html', {
-              'leaderboard_name': leaderboard_name,
-              'players': players,
-          })'''

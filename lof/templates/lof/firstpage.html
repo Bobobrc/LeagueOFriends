@@ -1,20 +1,39 @@
 {% extends 'lof/index.html' %}{% block body %} {% if error_message %}
-<h2>{{ error_message }}</h2>
+<h2 class="errorMessage">{{ error_message }}</h2>
 {% endif %}
-<h2>Create leaderboard</h2>
-<form method="POST">
-  {% csrf_token %}
-  <label>Leaderbord name:</label>
-  <input type="text" name="leaderboard_name" placeholder="Leaderboard name" /><br />
-  <label>Leaderboard password:</label>
-  <input type="password" name="leaderboard_password" placeholder="Leaderboard password" />
-  <button type="submit" name="create_leaderboard">Create leaderboard!</button>
-</form>
-<h2>Search leaderboard</h2>
-<form method="POST">
-  {% csrf_token %}
-  <label>Leaderboard name:</label>
-  <input type="text" name="leaderboard_name" placeholder="Leaderboard name" />
-  <button type="submit" name="search_leaderboard">Go to leaderboard!</button>
-</form>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 class="createLeaderboard">Create leaderboard</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <label class="leaderboardNameLabel">Leaderbord name:</label>
+        <input type="text" name="leaderboard_name" placeholder="leaderboard name" class="nameField" /><br />
+        <label class="leaderboardPasswordLabel">Leaderboard password:</label>
+        <input
+          type="password"
+          name="leaderboard_password"
+          placeholder="leaderboard password"
+          class="passwordField"
+        /><br />
+        <button type="submit" name="create_leaderboard" class="btn btn-primary buttonPage1">Create leaderboard!</button>
+      </form>
+    </div>
+    <div class="col">
+      <h2 class="searchLeaderboard">Search leaderboard</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <label class="leaderboardNameLabel leaderboardNameLabel2">Leaderboard name:</label>
+        <input type="text" name="leaderboard_name" placeholder="leaderboard name" /><br />
+        <button type="submit" name="search_leaderboard" class="btn btn-primary buttonPage1 button2">
+          Go to leaderboard!
+        </button>
+      </form>
+    </div>
+  </div>
+  <h2 class="publicLeaderboards">Public leaderboards</h2>
+  {% for leaderboard in leaderboards %}
+  <a href="{% url 'leaderboard' leaderboard %}" class="allLeaderboards">{{leaderboard}}</a>
+  {% endfor %}
+</div>
 {% endblock body %}

@@ -1,157 +1,126 @@
 {% extends 'lof/index.html' %}{% block body %}
-<h1>{{leaderboard_name}}</h1>
-<h2>Add player</h2>
+<h1 class="leaderboardName">{{leaderboard_name}}</h1>
 {% if error_message %}
-<h3>{{error_message}}</h3>
+<h3 class="errorMessage">{{error_message}}</h3>
 {% endif %}
-<form method="POST">
-  {% csrf_token %}
-  <select name="region">
-    <option value="EUN1">Europe Nordic & East</option>
-    <option value="BR1">Brazil</option>
-    <option value="EUW1">Europe West</option>
-    <option value="JP1">Japan</option>
-    <option value="KR">Korea</option>
-    <option value="LA1">Latin America North</option>
-    <option value="LA2">Latin America South</option>
-    <option value="NA1">North America</option>
-    <option value="OC1">Oceania</option>
-    <option value="PH2">Philippines</option>
-    <option value="RU">Russia</option>
-    <option value="SG2">Singapore</option>
-    <option value="TH2">Thailand</option>
-    <option value="TR1">Turkiye</option>
-    <option value="TW2">Taiwan</option>
-    <option value="VN2">Vietnam</option>
-  </select>
-  <input type="text" name="username" placeholder="Username" />
-  <input type="text" name="tag" placeholder="Tag" />
-  <label
-    style="
-      color: white;
-      background-color: darkolivegreen;
-      border-color: black;
-      border-style: solid;
-      border-width: 2.5px;
-      margin: 5px;
-    "
-  >
-    <input type="checkbox" name="solo_duo" />
-    S/D
-  </label>
-  <label
-    style="
-      color: white;
-      background-color: darkolivegreen;
-      border-color: black;
-      border-style: solid;
-      border-width: 2.5px;
-      margin: 5px;
-    "
-  >
-    <input type="checkbox" name="flex" />
-    FLEX
-  </label>
-  <label
-    style="
-      color: white;
-      background-color: darkolivegreen;
-      border-color: black;
-      border-style: solid;
-      border-width: 2.5px;
-      margin: 5px;
-    "
-  >
-    <input type="checkbox" name="tft" />
-    TFT
-  </label>
-  <button type="submit" name="add_player">Add player!</button>
-</form>
-
-<div>
-  <div>
+<div class="row">
+  <div class="col-2">
+    <h2 class="addPlayer">Add player:</h2>
+  </div>
+  <div class="col-10">
     <form method="POST">
       {% csrf_token %}
-      <button style="margin-top: 10px" type="submit" name="remove_player">REMOVE PLAYERS!</button>
-      <h3>Solo/Duo</h3>
-      <button type="submit" name="update_sd_leaderboard" value="update_sd">Update</button>
-    <ul>
-      {% for player in solo_duo_players %}
-      <div style="display: flex; align-items: center">
-        <li style="margin-right: 10px">{{player}}</li>
-        <label
-          style="
-            color: white;
-            background-color: darkolivegreen;
-            border-color: black;
-            border-style: solid;
-            border-width: 2.5px;
-            margin: 5px;
-            display: flex;
-            align-items: center;
-          "
-        >
-          <input style="margin-left: 5px" type="checkbox" name="sd_players" value="{{player.0}}" />
-          Remove player!
-        </label>
-      </div>
-      {% endfor %}
-    </ul>
+      <select name="region">
+        <option value="EUN1">Europe Nordic & East</option>
+        <option value="BR1">Brazil</option>
+        <option value="EUW1">Europe West</option>
+        <option value="JP1">Japan</option>
+        <option value="KR">Korea</option>
+        <option value="LA1">Latin America North</option>
+        <option value="LA2">Latin America South</option>
+        <option value="NA1">North America</option>
+        <option value="OC1">Oceania</option>
+        <option value="PH2">Philippines</option>
+        <option value="RU">Russia</option>
+        <option value="SG2">Singapore</option>
+        <option value="TH2">Thailand</option>
+        <option value="TR1">Turkiye</option>
+        <option value="TW2">Taiwan</option>
+        <option value="VN2">Vietnam</option>
+      </select>
+      <input type="text" name="username" placeholder="Username" />
+      <input type="text" name="tag" placeholder="Tag" />
+      <label class="sdCheckbox">
+        <input type="checkbox" name="solo_duo" />
+        S/D
+      </label>
+      <label class="flexCheckbox" >
+        <input type="checkbox" name="flex" />
+        FLEX
+      </label>
+      <label class="tftCheckbox">
+        <input type="checkbox" name="tft" />
+        TFT
+      </label>
+      <button type="submit" name="add_player" class="btn btn-primary addButton">Add player!</button>
+    </form>
+  </div>
+</div>
 
-    <h3>FLEX</h3>
-      <button type="submit" name="update_flex_leaderboard" value="update_flex">Update</button>
-    <div>
-      <ul>
-        {% for player in flex_players %}
-        <div style="display: flex; align-items: center">
-          <li style="margin-right: 10px">{{player}}</li>
-          <label
-            style="
-              color: white;
-              background-color: darkolivegreen;
-              border-color: black;
-              border-style: solid;
-              border-width: 2.5px;
-              margin: 5px;
-              display: flex;
-              align-items: center;
-            "
-          >
-            <input style="margin-left: 5px" type="checkbox" name="flex_players" value="{{player.0}}" />
-            Remove player!
-          </label>
+<form method="POST">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-4 sdTable">
+      <div class="row">
+        <div class="col-5">
+          <h3 class="sdPlayersT">Solo/Duo</h3>
         </div>
+        <div class="col-7">
+          <button class="btn btn-primary btn-sm sdUpdate" type="submit" name="update_sd_leaderboard" value="update_sd">Update leaderboard</button>
+        </div>
+      </div>
+      <div>
+        {% for player in solo_duo_players %}
+        <div class="players">
+          {{player}}
+          <label class="removePlayerLabel">
+            <input class="removePlayerCheckbox" type="checkbox" name="sd_players" value="{{player.0}}" />
+            Remove
+          </label>
+        </div> 
         {% endfor %}
-      </ul>
+      </div>
     </div>
-    <h3>TFT</h3>
-      <button type="submit" name="update_tft_leaderboard" value="update_tft">Update</button>
-    <div>
-      <ul>
-        {% for player in tft_players %}
-        <div style="display: flex; align-items: center">
-          <li style="margin-right: 10px">{{player}}</li>
-          <label
-            style="
-              color: white;
-              background-color: darkolivegreen;
-              border-color: black;
-              border-style: solid;
-              border-width: 2.5px;
-              margin: 5px;
-              display: flex;
-              align-items: center;
-            "
-          >
-            <input style="margin-left: 5px" type="checkbox" name="tft_players" value="{{player.0}}" />
-            Remove player!
+    <div class="col-4 flexTable">
+      <div class="row">
+        <div class="col-5">
+          <h3 class="flexPlayersT">FLEX</h3>
+        </div>
+        <div class="col-7">
+          <button class="btn btn-primary btn-sm flexUpdate" type="submit" name="update_flex_leaderboard" value="update_flex">Update leaderboard</button>
+        </div>
+      </div>
+      <div>
+        {% for player in flex_players %}
+        <div class="players">
+        {{player}}
+          <label class="removePlayerLabel">
+            <input class="removePlayerCheckbox" type="checkbox" name="flex_players" value="{{player.0}}" />
+            Remove
           </label>
         </div>
         {% endfor %}
-      </ul>
-      </form>
+      </div>
+    </div>
+    <div class="col-4 tftTable">
+      <div class="row">
+        <div class="col-5">
+          <h3 class="tftPlayersT">TFT</h3>
+        </div>
+        <div class="col-7">
+          <button class="btn btn-primary btn-sm tftUpdate" type="submit" name="update_tft_leaderboard" value="update_tft">Update leaderboard</button>
+        </div>
+      </div>
+      <div>
+        {% for player in tft_players %}
+        <div class="players">
+          {{player}}
+          <label class="removePlayerLabel">
+            <input class="removePlayerCheckbox" type="checkbox" name="tft_players" value="{{player.0}}" />
+            Remove
+          </label>
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
-  <a href="{% url 'firstpage' %}">BACK TO MAIN PAGE</a>
+  <div class="row">
+    <div class="col-12 removePlayersButton">
+    <button class="btn btn-danger btn-lg" type="submit" name="remove_player">REMOVE PLAYERS!</button>
+  </div>
+  </div>
+</form>
+
+  <a href="{% url 'firstpage' %}" class="goBack">BACK TO MAIN PAGE</a>
   {% endblock body %}
 </div>
