@@ -2,12 +2,14 @@ import requests
 
 from .models import SoloDuoLeaderboard, Leaderboard, Player, FlexLeaderboard, TftLeaderboard
 from .forms import PlayerForm, SoloDuoLeaderboardForm, FlexLeaderboardForm, TftLeaderboardForm
+from django.conf import settings
 
-api_key = ''
+api_key = settings.API_KEY
 tiers = ('UNRANKED', 'IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 'DIAMOND', 'MASTER', 'GRANDMASTER', 'CHALLENGER')
 ranks = ('UNRANKED', 'IV', 'III', 'II', 'I')
 
 def main(leaderboard_name, region, username, tag, wanted_leaderboards): 
+  print(api_key)
   if Player.objects.filter(name=username).exists():
     puuid = Player.objects.get(name=username).puuid
   else:

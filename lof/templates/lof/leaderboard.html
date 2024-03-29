@@ -50,16 +50,16 @@
 <form method="POST">
   {% csrf_token %}
   <div class="row">
-    <div class="col-4 sdTable">
+    <div class="col-4">
       <div class="row">
         <div class="col-5">
-          <h3 class="sdPlayersT">Solo/Duo</h3>
+          <h3 class="sdPlayersT">SOLO/DUO</h3>
         </div>
         <div class="col-7">
           <button class="btn btn-primary btn-sm sdUpdate" type="submit" name="update_sd_leaderboard" value="update_sd">Update leaderboard</button>
         </div>
       </div>
-      <div>
+      <div class="sdTable">
         {% for player in solo_duo_players %}
         <div class="players">
           {{player}}
@@ -71,7 +71,7 @@
         {% endfor %}
       </div>
     </div>
-    <div class="col-4 flexTable">
+    <div class="col-4">
       <div class="row">
         <div class="col-5">
           <h3 class="flexPlayersT">FLEX</h3>
@@ -80,7 +80,7 @@
           <button class="btn btn-primary btn-sm flexUpdate" type="submit" name="update_flex_leaderboard" value="update_flex">Update leaderboard</button>
         </div>
       </div>
-      <div>
+      <div class="flexTable">
         {% for player in flex_players %}
         <div class="players">
         {{player}}
@@ -92,7 +92,7 @@
         {% endfor %}
       </div>
     </div>
-    <div class="col-4 tftTable">
+    <div class="col-4">
       <div class="row">
         <div class="col-5">
           <h3 class="tftPlayersT">TFT</h3>
@@ -101,7 +101,7 @@
           <button class="btn btn-primary btn-sm tftUpdate" type="submit" name="update_tft_leaderboard" value="update_tft">Update leaderboard</button>
         </div>
       </div>
-      <div>
+      <div class="tftTable">
         {% for player in tft_players %}
         <div class="players">
           {{player}}

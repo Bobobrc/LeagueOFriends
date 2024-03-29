@@ -24,7 +24,7 @@ def firstpage(request):
         create_leaderboard_form.save()  
         return redirect('leaderboard', leaderboard_name = leaderboard_name)
       else:
-        return render(request, './lof/firstpage.html', {'error_message': "Leaderboard already exists!"})
+        return render(request, './lof/firstpage.html', {'error_message': "Leaderboard already exists!", 'leaderboards':leaderboards})
   return render(request, './lof/firstpage.html', {
     'leaderboards': leaderboards
   })
@@ -41,7 +41,6 @@ def leaderboard(request, leaderboard_name):
     elif 'update_tft_leaderboard' in request.POST:
       update_leaderboard(leaderboard, 'tft')
     elif 'remove_player' in request.POST:
-      print(request.POST)
       if 'sd_players' in request.POST:
         players = request.POST.getlist('sd_players')
         remove_players(leaderboard, players, 'sd')
