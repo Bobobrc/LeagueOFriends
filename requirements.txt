@@ -11,9 +11,9 @@ certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==3.0.1
 discord.py==2.3.2
-dj-database-url==2.1.0
-Django<=4.2.4
-django-binary-database-files==1.0.10
+dj-database-url>=2.1.0
+Django==4.2.4
+django-binary-database-files>=1.0.10
 et-xmlfile==1.1.0
 exceptiongroup==1.1.0
 frozenlist==1.4.0
