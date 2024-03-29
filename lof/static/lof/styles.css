@@ -108,6 +108,7 @@ footer {
 }
 
 .removePlayerLabel {
+  font-family: "Roboto Slab", sans-serif;
   color: white;
   background-color: darkolivegreen;
   border-color: white;
@@ -133,6 +134,7 @@ footer {
   display: flex;
   justify-content: flex-end;
   margin-top: 15px;
+  font-family: "Roboto Slab", sans-serif;
 }
 
 .sdUpdate,
@@ -149,6 +151,8 @@ footer {
   height: 500px;
   overflow: auto;
   border: 1px #aabbcc solid;
+  scrollbar-width: thin;
+  font-family: "Roboto Slab", sans-serif;
 }
 
 .removePlayersButton {
