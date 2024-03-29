@@ -31,7 +31,7 @@ API_KEY = config('API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['leagueofriends.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','leagueofriends.onrender.com']
 
 
 # Application definition
