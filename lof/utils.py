@@ -9,7 +9,6 @@ tiers = ('UNRANKED', 'IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 
 ranks = ('UNRANKED', 'IV', 'III', 'II', 'I')
 
 def main(leaderboard_name, region, username, tag, wanted_leaderboards): 
-  print(api_key)
   if Player.objects.filter(name=username).exists():
     puuid = Player.objects.get(name=username).puuid
   else:
