@@ -1,0 +1,97 @@
+#title,
+#subtitle {
+  text-align: center;
+}
+#subtitle {
+  padding-bottom: 25px;
+  border-bottom: 3px dotted;
+  border-width: 1px;
+}
+.mainPageContainer {
+  display: flex;
+  justify-content: space-around;
+}
+.createContainer,
+.searchLeaderboardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 10px double #333;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+#createButton,
+#searchButton {
+  margin-top: 5px;
+}
+.createForm,
+.searchForm {
+  display: flex;
+  flex-direction: column;
+}
+.searchInput,
+.createInput {
+  border-radius: 10px;
+  text-align: center;
+}
+.alert {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+.messages {
+  text-align: center;
+}
+.userLeaderboardsList {
+  text-align: center;
+  padding-top: 10px;
+  border-top: 1px dotted;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  overflow-wrap: break-word;
+}
+.userLeaderboards {
+  font-size: 25px;
+  text-decoration: none;
+  margin: 5px;
+  padding: 5px;
+}
+@media (max-width: 600px) {
+  .mainPageContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .createContainer,
+  .searchLeaderboardContainer {
+    margin: 1.5rem;
+  }
+  .createInput,
+  .searchInput {
+    font-size: 1rem;
+  }
+  .logoutContainer {
+    font-size: 0.7rem;
+  }
+}
+@media (max-width: 900px) and (min-width: 601px) {
+  .createContainer,
+  .searchLeaderboardContainer {
+    margin: 0.5rem;
+    font-size: 1rem;
+  }
+}

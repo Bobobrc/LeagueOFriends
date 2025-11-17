@@ -1,0 +1,35 @@
+{% extends 'LoF/base.html' %} {% load static %} {% block extra_head %}
+<link href="{% static 'LoF/css/login.css' %}" rel="stylesheet" />
+{% endblock extra_head %} {% block main %}
+<h1 id="title">LeagueOFriends</h1>
+<h3 id="subtitle">Login to create custom League Of Legends and Teamfight Tactics leaderboards!</h3>
+{% for message in messages %}
+<h5 class="alert alert-{{message.tags}} messages">{{message}}</h5>
+{% endfor %}
+
+<div class="loginPageContainer">
+  <div class="loginContainer">
+    <h1>Login</h1>
+    <form method="POST" action="" class="loginForm">
+      {% csrf_token %}
+      <label for="username">Username</label><input type="text" name="username" class="loginInput" />
+      <label for="password">Password</label><input type="password" name="password" class="loginInput" />
+      <button type="submit" name="login" class="btn btn-success" id="loginButton">Login</button>
+    </form>
+    {{form.errors}}
+    <span id="loginBottom">Don't have an account? <a href="{% url 'registerPage' %}">Register</a></span>
+  </div>
+  <div class="searchLeaderboardContainer">
+    <h1>Search leaderboard</h1>
+    <form method="POST" class="searchForm">
+      {% csrf_token %}
+      <label>Leaderboard name</label>
+      <input type="text" name="leaderboard_name" class="searchInput" />
+      <button type="submit" name="search_leaderboard" class="btn btn-primary" id="searchButton">
+        Go to leaderboard!
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock main %}

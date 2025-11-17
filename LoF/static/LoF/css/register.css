@@ -1,0 +1,34 @@
+#title,
+#subtitle {
+  text-align: center;
+}
+#subtitle {
+  padding-bottom: 25px;
+  border-bottom: 3px dotted;
+  border-width: 1px;
+}
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 10px double #333;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 2rem;
+  max-width: 333px;
+  margin: 0 auto;
+}
+#registerButton {
+  margin-top: 5px;
+  width: 83%;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.registerContainer input {
+  border-radius: 10px;
+  text-align: center;
+}

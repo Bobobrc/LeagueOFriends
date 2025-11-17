@@ -1,0 +1,43 @@
+{% extends 'LoF/base.html' %}{% load static %}{% block extra_head %}
+<link href="{% static '/LoF/css/main.css' %}" rel="stylesheet" />
+{% endblock extra_head %}{% block main %}
+<h1 id="title">LeagueOFriends</h1>
+<h3 id="subtitle">Create custom League Of Legends and Teamfight Tactics leaderboards!</h3>
+{% for message in messages %}
+<h5 class="alert alert-{{message.tags}} messages">{{message}}</h5>
+{% endfor %}
+<div class="mainPageContainer">
+  <div class="createContainer">
+    <h1>Create leaderboard</h1>
+    <form method="POST" action="" class="createForm">
+      {% csrf_token %}
+      <label for="leaderboard_name">Leaderboard name</label
+      ><input type="text" name="leaderboard_name" class="createInput" />
+      <input type="hidden" name="user" value="{{ request.user.id }}" />
+      <button type="submit" name="create_leaderboard" class="btn btn-success" id="createButton">
+        Create leaderboard!
+      </button>
+    </form>
+    {{form.errors}}
+  </div>
+  <div class="searchLeaderboardContainer">
+    <h1>Search leaderboard</h1>
+    <form method="POST" class="searchForm">
+      {% csrf_token %}
+      <label for="leaderboard_name">Leaderboard name</label
+      ><input type="text" name="leaderboard_name" class="searchInput" />
+      <button type="submit" name="search_leaderboard" class="btn btn-primary" id="searchButton">
+        Go to leaderboard!
+      </button>
+    </form>
+  </div>
+</div>
+<div class="userLeaderboardsList">
+  {% if leaderboards %}
+  <h2>YOUR LEADERBOARDS</h2>
+  {% for leaderboard in leaderboards %}
+  <a href="{% url 'leaderboard' leaderboard.leaderboard_name %}" class="userLeaderboards"
+    >{{leaderboard.leaderboard_name}}</a
+  >{% endfor %} {% endif %}
+</div>
+{% endblock main %}

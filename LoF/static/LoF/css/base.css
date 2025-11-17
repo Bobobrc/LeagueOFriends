@@ -1,0 +1,119 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.navbar {
+  background: #333;
+  color: white;
+  font-family: "Roboto Slab", sans-serif;
+  padding: 10px 0;
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+#logo {
+  padding-left: 20px;
+  font-size: 20px;
+  margin-right: 10px;
+  font-weight: 900;
+}
+#homeLink {
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+}
+.navbarLinks {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+.navbarSearchForm {
+  display: flex;
+  justify-content: center;
+}
+.navbarSearchWrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+}
+#navbarSearchInput {
+  font-size: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-right: 5px;
+}
+#navbarSearchButton {
+  font-size: 15px;
+  border-radius: 10px;
+}
+.logoutContainer {
+  padding-right: 15px;
+}
+#logout {
+  color: white;
+}
+
+#riotText {
+  margin-top: 10px;
+  text-align: center;
+}
+
+main {
+  flex: 1;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  font-family: "Roboto Slab", sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+@media (max-width: 900px) and (min-width: 601px) {
+  .navbarSearchForm {
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+  }
+  #navbarSearchInput {
+    font-size: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 5px;
+  }
+  #navbarSearchButton {
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .navbarSearchForm {
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+  }
+  #navbarSearchInput {
+    font-size: 0.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 5px;
+  }
+  #navbarSearchButton {
+    font-size: 0.5rem;
+    border-radius: 10px;
+  }
+}

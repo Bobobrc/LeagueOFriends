@@ -1,0 +1,172 @@
+#leaderboardName {
+  text-align: center;
+}
+.messages {
+  text-align: center;
+}
+#addPlayerLabel {
+  font-size: 1rem;
+  align-items: center;
+}
+.addPlayer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  gap: 0.5rem;
+  margin-bottom: 10px;
+}
+.addPlayerContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: clamp(0.75rem, 1vw + 0.2rem, 1rem);
+}
+.addPlayerContent label {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.addPlayerContent button {
+  font-size: 1rem;
+}
+.tableSelectButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+#soloDuoButton,
+#flexButton,
+#tftButton {
+  font-size: 1.5rem;
+  border: 1px solid black;
+  border-radius: 15px 0 0 0;
+  min-width: 0;
+  flex-grow: 1;
+}
+.active-button {
+  background-color: rgb(96, 255, 96);
+}
+.updateButton {
+  font-size: 1.5rem;
+  border: 1px solid black;
+  border-radius: 0 15px 0 0;
+  background-color: rgb(255, 215, 130);
+  flex: 0.33;
+}
+.updateButton:disabled {
+  background-color: rgb(184, 184, 184);
+  cursor: not-allowed;
+}
+.tableHeaders,
+.tableContents {
+  display: grid;
+  grid-template-columns: 1fr 4fr 4fr 2fr; /* Adjust to match top buttons layout */
+  align-items: center;
+  padding: 0.25rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.tableHeaders {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.tblHeader,
+.tblTypeHeader,
+.tblContentNo,
+.tblContent {
+  margin: 0;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+}
+
+.tableContents {
+  border-bottom: 1px solid black;
+  background-color: #fff;
+  width: 100%;
+}
+
+.tableContentsForm {
+  width: 100%;
+}
+
+.removePlayerButton {
+  border: 1px solid black;
+  background-color: rgb(250, 76, 76);
+  font-weight: bold;
+  cursor: pointer;
+}
+#deleteLeaderboardButton {
+  margin-top: 10px;
+  text-align: center;
+}
+.deleteLeaderboard {
+  display: flex;
+  justify-content: center;
+}
+.alert {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+@media(max-width:900px){
+  .addPlayer,.addPlayerContent{
+    flex-direction: column;
+  }
+  .tblHeader,
+  .tblTypeHeader,
+  .tblContentNo,
+  .tblContent{
+  font-size: 0.75rem;
+  }
+  #soloDuoButton,
+  #flexButton,
+  #tftButton,
+  .updateButton{
+    font-size: 0.75rem;
+  }
+  .removePlayerButton{
+    font-weight: normal;
+  }
+}
+@media(max-width: 600px){
+  .navbar{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .navbarSearchForm {
+    display: flex;
+    justify-content: center;
+    font-size: 0.5rem;
+  }
+  .navbarSearchWrapper{
+    position: static;
+    transform: none;
+  }
+  .navbarLinks{
+    font-size: 1rem;
+  }
+  .logoutContainer{
+    font-size: 0.75rem;
+  }
+}

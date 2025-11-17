@@ -1,0 +1,120 @@
+{% extends 'LoF/base.html' %}{% load static %}{% block extra_head %}
+<link href="{% static '/LoF/css/leaderboard.css' %}" rel="stylesheet" />
+{% endblock extra_head %}{% block main %}
+<h1 id="leaderboardName">{{leaderboard_name}}</h1>
+{% for message in messages %}
+<h5 class="alert alert-{{message.tags}} messages">{{message}}</h5>
+{% endfor %}
+<div class="container">
+  {% if leaderboard_creator %}
+  <div class="addPlayer">
+    <span id="addPlayerLabel">Add player:</span>
+    <form method="POST" class="addPlayerContent">
+      {% csrf_token %}
+      <select name="region">
+        <option value="EUN1">Europe Nordic & East</option>
+        <option value="BR1">Brazil</option>
+        <option value="EUW1">Europe West</option>
+        <option value="JP1">Japan</option>
+        <option value="KR">Korea</option>
+        <option value="LA1">Latin America North</option>
+        <option value="LA2">Latin America South</option>
+        <option value="NA1">North America</option>
+        <option value="OC1">Oceania</option>
+        <option value="PH2">Philippines</option>
+        <option value="RU">Russia</option>
+        <option value="SG2">Singapore</option>
+        <option value="TH2">Thailand</option>
+        <option value="TR1">Turkiye</option>
+        <option value="TW2">Taiwan</option>
+        <option value="VN2">Vietnam</option>
+      </select>
+      <input type="text" name="username" placeholder="Username" />
+      <input type="text" name="tag" placeholder="Tag" />
+      <label
+        ><input type="checkbox" id="in_soloq" name="inSoloDuo" {% if in_soloq %}checked{% endif %} />SOLO/DUO</label
+      >
+      <label><input type="checkbox" id="in_flex" name="inFlex" {% if in_flex %}checked{% endif %} />FLEX</label>
+      <label><input type="checkbox" id="int_tft" name="inTft" {% if in_tft %}checked{% endif %} />TFT</label>
+      <button type="submit" name="add_player" class="btn btn-primary" id="addPlayerButton">Add player!</button>
+    </form>
+  </div>
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class="tableSelectButtons">
+      <button type="button" onclick="showLeaderboard('soloDuoLeaderboard', 'soloDuoButton')" class="active-button" id="soloDuoButton" name="leaderboardButton">SOLO/DUO</button>
+      <button type="submit" id="updateSoloDuo" name="updateSoloDuo" class="updateButton" {% if not can_update_soloduo%}disabled{%endif%}>Update!</button>
+      <button type="button" onclick="showLeaderboard('flexLeaderboard', 'flexButton')" id="flexButton" name="leaderboardButton">FLEX</button>
+      <button type="submit" id="updateFlex" name="updateFlex" class="updateButton" {% if not can_update_flex%}disabled{%endif%}>Update!</button>
+      <button type="button" onclick="showLeaderboard('tftLeaderboard', 'tftButton')" id="tftButton" name="leaderboardButton">TFT</button>
+      <button type="submit" id="updateTft" name="updateTft" class="updateButton" {% if not can_update_tft%}disabled{%endif%}>Update!</button>
+    </div>
+  </form>
+  <div id="soloDuoLeaderboard" class="leaderboard">
+    <div class="tableHeaders">
+      <p class="tblHeader">Nº</p>
+      <p class="tblHeader">Player name</p>
+      <p class="tblHeader">Rank</p>
+      <p class="tblTypeHeader"></p>
+    </div>
+    {% for player in solo_duo_players %}
+    <form method="POST" class="tableContentsForm">
+      {% csrf_token %}
+      <div class="tableContents">
+        <p class="tblContentNo">{{player.0}}</p>
+        <p class="tblContent">{{player.1}}</p>
+        <p class="tblContent">{{player.2}} {{player.3}} {{player.4}}</p>
+        <button class="removePlayerButton" name="remove_player" value="{{player.1}}_soloduo">Remove player!</button>
+      </div>
+    </form>
+    {% endfor %}
+  </div>
+  <div id="flexLeaderboard" class="leaderboard" style="display: none">
+    <div class="tableHeaders">
+      <p class="tblHeader">Nº</p>
+      <p class="tblHeader">Player name</p>
+      <p class="tblHeader">Rank</p>
+      <p class="tableTypeHeader"></p>
+    </div>
+    {% for player in flex_players %}
+    <form method="POST" class="tableContentsForm">
+      {% csrf_token %}
+      <div class="tableContents">
+        <p class="tblContent">{{player.0}}</p>
+        <p class="tblContent">{{player.1}}</p>
+        <p class="tblContent">{{player.2}} {{player.3}} {{player.4}}</p>
+        <button class="removePlayerButton" name="remove_player" value="{{player.1}}_flex">Remove player!</button>
+      </div>
+    </form>
+    {% endfor %}
+  </div>
+  <div id="tftLeaderboard" class="leaderboard" style="display: none">
+    <div class="tableHeaders">
+      <p class="tblHeader">Nº</p>
+      <p class="tblHeader">Player name</p>
+      <p class="tblHeader">Rank</p>
+      <p class="tableTypeHeader"></p>
+    </div>
+    {% for player in tft_players %}
+    <form method="POST" class="tableContentsForm">
+      {% csrf_token %}
+      <div class="tableContents">
+        <p class="tblContent">{{player.0}}</p>
+        <p class="tblContent">{{player.1}}</p>
+        <p class="tblContent">{{player.2}} {{player.3}} {{player.4}}</p>
+        <button class="removePlayerButton" name="remove_player" value="{{player.1}}_tft">Remove player!</button>
+      </div>
+    </form>
+    {% endfor %}
+  </div>
+  {% if leaderboard_creator %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class="deleteLeaderboard">
+      <button class="btn btn-danger" id="deleteLeaderboardButton" name="deleteLeaderboard">DELETE LEADERBOARD</button>
+    </div>
+  </form>
+  {% endif %}
+</div>
+{% endblock main %}
