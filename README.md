@@ -5,8 +5,16 @@ Build based on my LoFdiscordBot project, it creates custom leaderboard for Leagu
 Homepage:  
 ![Homepage screenshot](https://github.com/Bobobrc/LeagueOFriends/blob/main/main.PNG?raw=true)
 
-Here is the about page screenshot:  
-![About page](images/screenshot2.png)
+Login:  
+![Login page](https://github.com/Bobobrc/LeagueOFriends/blob/main/login.PNG?raw=true)
+
+Register:  
+![Register page](https://github.com/Bobobrc/LeagueOFriends/blob/main/register.PNG?raw=true)
+
+Leaderboard:  
+![Leaderboard page](https://github.com/Bobobrc/LeagueOFriends/blob/main/leaderboard1.PNG?raw=true)
+
+Leaderboard:  
+![Leaderboard page](https://github.com/Bobobrc/LeagueOFriends/blob/main/leaderboard2.PNG?raw=true)
 
 Thank you for checking this out!  
-Feel free to ask any questions.
